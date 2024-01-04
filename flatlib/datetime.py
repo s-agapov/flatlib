@@ -70,7 +70,7 @@ class Date:
         if isinstance(value, str):
             # Assume string date such as "2015/03/29"
             value = [int(v) for v in value.split('/')]
-            if calendar = GREGORIAN and value[0] < CALENDAR_CHANGE(0):
+            if calendar == GREGORIAN and value[0] < CALENDAR_CHANGE:
                 print("Check calendar type, date < " + CALENDAR_CHANGE)
             value = dateJDN(value[0], value[1], value[2], calendar)
         elif isinstance(value, list):
