@@ -57,6 +57,7 @@ SWE_AYANAMSAS = {
     const.AY_RAMAN: 3,
     const.AY_KRISHNAMURTI: 4,
     const.AY_ALDEBARAN_15TAU: 14,
+    const.AY_SASSANIAN: 16,
     const.AY_GALCENTER_5SAG: 17
 }
 

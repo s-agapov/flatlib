@@ -246,9 +246,6 @@ MAJOR_ASPECTS = [0, 60, 90, 120, 180]
 MINOR_ASPECTS = [30, 36, 45, 72, 108, 135, 144, 150]
 ALL_ASPECTS = MAJOR_ASPECTS + MINOR_ASPECTS
 
-<<<<<<< HEAD
-=======
-
 # === Ayanamsas / Sidereal Zodiac === */
 
 AY_FAGAN_BRADLEY = "Ayanamsa Fagan Bradley"
@@ -256,11 +253,10 @@ AY_LAHIRI = "Ayanamsa Lahiri"
 AY_DELUCE = "Ayanamsa De Luce"
 AY_RAMAN = "Ayanamsa Raman"
 AY_KRISHNAMURTI = "Ayanamsa Krishnamurti"
+AY_SASSANIAN = "Ayanamsa Sassanian"
 AY_ALDEBARAN_15TAU = "Ayanamsa Aldebaran 15 Taurus"
 AY_GALCENTER_5SAG = "Ayanamsa Galactic Eq. 05 Sag"
 
-
->>>>>>> ca37f9e (Initial support for sidereal zodiac)
 # === Some Lists === */
 
 LIST_SIGNS = [

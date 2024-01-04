@@ -18,8 +18,6 @@ from . import angle
 # Calendar types
 GREGORIAN = 0
 JULIAN = 1
-
-
 # === Julian Day Number conversions === #
 
 def dateJDN(year, month, day, calendar):
@@ -64,14 +62,13 @@ class Date:
     # Calendar types
     GREGORIAN = GREGORIAN
     JULIAN = JULIAN
-    CALENDAR_CHANGE = 1583
     
     def __init__(self, value, calendar=GREGORIAN):
         if isinstance(value, str):
             # Assume string date such as "2015/03/29"
             value = [int(v) for v in value.split('/')]
-            if calendar == GREGORIAN and value[0] < CALENDAR_CHANGE:
-                print("Check calendar type, date < " + CALENDAR_CHANGE)
+            if calendar == GREGORIAN and value[0] < 1583:
+                print("Check calendar type, date < " + 1583)
             value = dateJDN(value[0], value[1], value[2], calendar)
         elif isinstance(value, list):
             # Assume list date such as [2015,03,29]
