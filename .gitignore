@@ -1,7 +1,11 @@
+.ipynb_checkpoints
+*.egg-info
+
 # Eclipse project files
 .pydevproject
 .project
 .settings
+
 
 # Pycharm project files
 .idea

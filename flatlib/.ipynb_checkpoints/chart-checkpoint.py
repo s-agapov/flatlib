@@ -52,6 +52,9 @@ class Chart:
         self.hsys = hsys
         self.objects = ephem.getObjectList(IDs, date, pos)
         self.houses, self.angles = ephem.getHouses(date, pos, hsys)
+        
+        IDs = const.LIST_FIXED_STARS
+        self.stars = ephem.getFixedStarList(IDs, self.date)
 
     def copy(self):
         """ Returns a deep copy of this chart. """
