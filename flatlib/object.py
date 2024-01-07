@@ -46,12 +46,18 @@ class GenericObject:
         return self.fromDict(self.__dict__)
 
     def __str__(self):
-        return '<%s %s %s>' % (
+        return '<%s; %s %s>' % (
             self.id,
             self.sign,
             angle.toString(self.signlon)
         )
 
+    def __repr__(self):
+            return '<%s; %s %s>' % (
+            self.id,
+            self.sign,
+            angle.toString(self.signlon)
+        )
     # === Properties === #
 
     def orb(self):
@@ -117,6 +123,7 @@ class Object(GenericObject):
             angle.toString(self.lonspeed)
         )
 
+ 
     # === Properties === #
 
     def orb(self):
@@ -243,6 +250,10 @@ class FixedStar(GenericObject):
             string,
             self.mag
         )
+    
+    def __repr__(self):
+        string = super().__repr__()
+        return string
 
     # === Properties === #
 

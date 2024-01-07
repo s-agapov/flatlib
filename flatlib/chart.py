@@ -65,6 +65,7 @@ class Chart:
         chart.objects = self.objects.copy()
         chart.houses = self.houses.copy()
         chart.angles = self.angles.copy()
+        chart.stars = self.stars.copy()
         return chart
 
     def move(self, offset):
@@ -74,6 +75,8 @@ class Chart:
         for obj in self.houses:
             obj.relocate(obj.lon + offset)
         for obj in self.angles:
+            obj.relocate(obj.lon + offset)
+        for obj in self.stars:
             obj.relocate(obj.lon + offset)
 
     def to_sidereal_zodiac(self, mode):
@@ -122,11 +125,6 @@ class Chart:
     def getFixedStar(self, ID):
         """ Returns a fixed star from the chart. """
         return self.stars.get(ID)
-
-    def getFixedStars(self):
-        """ Returns a list with all fixed stars. """
-        IDs = const.LIST_FIXED_STARS
-        return ephem.getFixedStarList(IDs, self.date)
 
     # === Houses and angles === #
 
