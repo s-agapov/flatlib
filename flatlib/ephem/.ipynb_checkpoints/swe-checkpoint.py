@@ -91,14 +91,17 @@ def sweObjectLon(obj, jd):
     return sweList[0]
 
 
-def sweNextTransit(obj, jd, lat, lon, flag):
+def sweNextTransit(obj, jd:float, lat:float, lon:float, flag:str):
     """ Returns the julian date of the next transit of
     an object. The flag should be 'RISE' or 'SET'. 
     
     """
     sweObj = SWE_OBJECTS[obj]
+    geopos = (lon, lat, 0)
     flag = swisseph.CALC_RISE if flag == 'RISE' else swisseph.CALC_SET
-    trans = swisseph.rise_trans(jd, sweObj, lon, lat, 0, 0, 0, flag)
+    
+    rsmi = flag| swisseph.BIT_DISC_CENTER | swisseph.BIT_NO_REFRACTION
+    trans = swisseph.rise_trans(jd, sweObj, rsmi, geopos, flag)
     return trans[1][0]
 
 
