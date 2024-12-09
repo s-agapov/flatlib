@@ -13,9 +13,12 @@
   
 """
 
+from typing import List
+
 from flatlib import const
 from flatlib.ephem import ephem
 from flatlib.datetime import Datetime
+from flatlib.geopos import GeoPos
 
 # Planetary rulers starting at Sunday
 DAY_RULERS = [
@@ -53,7 +56,7 @@ ROUND_LIST = [
 
 # === Private functions === #
 
-def nthRuler(n, dow):
+def nthRuler(n:int, dow:int) -> str:
     """ Returns the n-th hour ruler since last sunrise
     by day of week. Both arguments are zero based.
     
@@ -62,7 +65,7 @@ def nthRuler(n, dow):
     return ROUND_LIST[index]
 
 
-def hourTable(date, pos):
+def hourTable(date: Datetime, pos: GeoPos) -> List:
     """ Creates the planetary hour table for a date 
     and position. 
     
@@ -96,7 +99,7 @@ def hourTable(date, pos):
     return table
 
 
-def getHourTable(date, pos):
+def getHourTable(date:Datetime, pos:GeoPos) -> HourTable:
     """ Returns an HourTable object. """
     table = hourTable(date, pos)
     return HourTable(table, date)

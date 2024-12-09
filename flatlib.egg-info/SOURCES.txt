@@ -50,6 +50,7 @@ flatlib/resources/swefiles/sepl_24.se1
 flatlib/tools/__init__.py
 flatlib/tools/arabicparts.py
 flatlib/tools/chartdynamics.py
+flatlib/tools/lots.py
 flatlib/tools/planetarytime.py
 tests/test_angles.py
 tests/test_chart.py

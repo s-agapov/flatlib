@@ -12,6 +12,9 @@
     angular functions for internal conversions.
 
 """
+from dateutil import parser
+import re
+from typing import List
 
 from . import angle
 
@@ -49,6 +52,15 @@ def jdnDate(jdn):
 #     Date Class     #
 # ------------------ #
 
+def valid_date(date_string):
+    # Регулярное выражение для проверки формата YYYY-MM-DD
+    pattern = r"^\d{4}.*"
+    
+    if re.match(pattern, date_string):
+        return True
+    else:
+        return False
+    
 class Date:
     """ This class represents a calendar date. It is
     internally represented by a JDN integer.
@@ -63,17 +75,22 @@ class Date:
     GREGORIAN = GREGORIAN
     JULIAN = JULIAN
     
-    def __init__(self, value, calendar=GREGORIAN):
+    def __init__(self, value: str|List, calendar=GREGORIAN):
         if isinstance(value, str):
             # Assume string date such as "2015/03/29"
-            value = [int(v) for v in value.split('/')]
+            if not valid_date(value):
+                raise Exception("Invalid data format, first 4 digits must be year")
+            dt = parser.parse(value)
+            value = [dt.year, dt.month, dt.day]
             if calendar == GREGORIAN and value[0] < 1583:
                 print("Check calendar type, date < " + str(1583))
             value = dateJDN(value[0], value[1], value[2], calendar)
         elif isinstance(value, list):
             # Assume list date such as [2015,03,29]
             value = dateJDN(value[0], value[1], value[2], calendar)
+            dt = parser.parse(f"{value[0]}-{value[1]}-{value[2]}")
         self.jdn = int(value)
+        self.dt = dt
 
     def dayofweek(self):
         """ Returns the day of week starting on Sunday as zero. """
@@ -171,22 +188,39 @@ class Datetime:
 
     def __init__(self, date, time=0, utcoffset=0, calendar=GREGORIAN):
             
+            
         # Prepare the variables
         if isinstance(date, Date):
             self.date = date
         else:
             self.date = Date(date, calendar)
-
+            
+        xd = self.date.date()
+        xd = [str(x).zfill(2) for x in xd]
+        xd = "-".join(xd)
+        
         if isinstance(time, Time):
             self.time = time
         else:
             self.time = Time(time)
-
+            
+        xt = self.time.time()
+        xt = [str(x).zfill(2) for x in xt]
+        xt = ":".join(xt)
+        
         if isinstance(utcoffset, Time):
             self.utcoffset = utcoffset
         else:
             self.utcoffset = Time(utcoffset)
-
+            
+        xtz = self.utcoffset.time()
+        xtz = [str(x).zfill(2) for x in xtz[:2]]
+        xtz = ":".join(xtz)
+        if xtz[0] == "0":
+            xtz = '+' + xtz
+            
+        self.dt = parser.parse(f"{xd} {xt} {xtz}")
+        
         # Compute jd
         self.jd = self.date.jdn + self.time.value / 24.0 - \
                   self.utcoffset.value / 24.0 - 0.5
