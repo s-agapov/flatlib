@@ -102,6 +102,19 @@ def fallDeg(sign):
     """ Returns the fall degree. """
     return TABLE[sign]['fall'][1]
 
+def degree_ruler(sign, lon):
+    degree = int(lon)
+    sign_ruler = ruler(sign)
+    # Список планет в порядке убывания скорости
+    planets = const.LIST_SEVEN_SPHERE
+    planets.reverse()
+    # Находим индекс планеты-управителя знака в списке планет
+    sign_index = planets.index(sign_ruler)
+    
+    # Вычисляем индекс планеты, управляющей текущим градусом
+    ruler_index = (sign_index + degree) % len(planets)
+    
+    return planets[ruler_index]
 
 def term(sign, lon):
     """ Returns the term for a sign and longitude. """
@@ -125,22 +138,26 @@ def face(sign, lon):
 
 # === Complex properties === #
 
-def getInfo(sign, lon):
+def getInfo(sign, lon = None):
     """ Returns the complete essential dignities
     for a sign and longitude.
 
     """
-    return {
-        'ruler': ruler(sign),
-        'exalt': exalt(sign),
-        'dayTrip': dayTrip(sign),
-        'nightTrip': nightTrip(sign),
-        'partTrip': partTrip(sign),
-        'term': term(sign, lon),
-        'face': face(sign, lon),
-        'exile': exile(sign),
-        'fall': fall(sign)
+    res = {
+    'ruler': ruler(sign),
+    'exile': exile(sign),        
+    'exalt': exalt(sign),        
+    'fall': fall(sign),           
+    'dayTrip': dayTrip(sign),
+    'nightTrip': nightTrip(sign),
+    'partTrip': partTrip(sign),
     }
+        
+    if lon:
+        res['term'] = term(sign, lon)
+        res['face'] = face(sign, lon)
+        
+    return res
 
 
 def isPeregrine(ID, sign, lon):

@@ -73,9 +73,10 @@ def _roundSlist(slist):
 def strSlist(string):
     """ Converts angle string to signed list. """
     sign = '-' if string[0] == '-' else '+'
-    values = [abs(int(x)) for x in string.split(':')]
+    values = string.split(':')
+    values[-1] = values[-1][:2] # round for two signs
+    values = [abs(int(x)) for x in values]
     return _fixSlist(list(sign) + values)
-
 
 def slistStr(slist):
     """ Converts signed list to angle string. """

@@ -142,7 +142,8 @@ class PrimaryDirections:
             eqZ = utils.eqCoords(lon, 0)
 
         return {
-            'id': ID,
+            'type': ID[0],
+            'id': ID[1],
             'lat': lat,
             'lon': lon,
             'ra': eqM[0],
@@ -154,46 +155,56 @@ class PrimaryDirections:
     def T(self, ID, sign):
         """ Returns the term of an object in a sign. """
         lon = self.terms[sign][ID]
-        ID = 'T_%s_%s' % (ID, sign)
-        return self.G(ID, 0, lon)
+        if self.chart.ayanamsha:
+            lon = lon + self.chart.ayanamsha
+        obj_signature = 'T_%s_%s' % (ID, sign)
+        obj_type = 'term'
+        res = [obj_type, obj_signature]
+        return self.G(res, 0, lon)
 
     def A(self, ID):
         """ Returns the Antiscia of an object. """
         obj = self.chart.getObject(ID).antiscia()
-        ID = 'A_%s' % (ID)
-        return self.G(ID, obj.lat, obj.lon)
+        obj_signature = 'A_%s' % (ID)
+        obj_type = 'antiscia'
+        res = [obj_type, obj_signature]
+        return self.G(res, obj.lat, obj.lon)
 
     def C(self, ID):
         """ Returns the CAntiscia of an object. """
         obj = self.chart.getObject(ID).cantiscia()
-        ID = 'C_%s' % (ID)
-        return self.G(ID, obj.lat, obj.lon)
+        obj_signature = 'C_%s' % (ID)
+        obj_type = 'cantiscia'
+        res = [obj_type, obj_signature]
+        return self.G(res, obj.lat, obj.lon)
 
     def D(self, ID, asp):
         """ Returns the dexter aspect of an object. """
         obj = self.chart.getObject(ID).copy()
         obj.relocate(obj.lon - asp)
-        ID = 'D_%s_%s' % (ID, asp)
-        return self.G(ID, obj.lat, obj.lon)
+        obj_signature = 'D_%s_%s' % (ID, asp)
+        obj_type = 'dexter'
+        res = [obj_type, obj_signature]
+        return self.G(res, obj.lat, obj.lon)
 
     def S(self, ID, asp):
         """ Returns the sinister aspect of an object. """
         obj = self.chart.getObject(ID).copy()
         obj.relocate(obj.lon + asp)
-        ID = 'S_%s_%s' % (ID, asp)
-        return self.G(ID, obj.lat, obj.lon)
+        obj_signature = 'S_%s_%s' % (ID, asp)
+        obj_type = 'sinister'
+        res = [obj_type, obj_signature]
+        return self.G(res, obj.lat, obj.lon)
 
     def N(self, ID, asp=0):
-        """ Returns the conjunction or opposition aspect 
-        of an object. 
-        
-        """
+        """ Returns the conjunction or opposition aspect of an object. """
         obj = self.chart.get(ID).copy()
         obj.relocate(obj.lon + asp)
-        ID = 'N_%s_%s' % (ID, asp)
-        return self.G(ID, obj.lat, obj.lon)
-
-    # === Arcs === #
+        obj_signature = 'N_%s_%s' % (ID, asp)
+        obj_type = 'conjunction or opposition'
+        res = [obj_type, obj_signature]
+        return self.G(res, obj.lat, obj.lon)
+        # === Arcs === #
 
     def _arc(self, prom, sig):
         """ Computes the in-zodiaco and in-mundo arcs 
@@ -283,6 +294,7 @@ class PrimaryDirections:
                     if 0 < arc < self.MAX_ARC:
                         res.append([
                             arcs[x],
+                            prom['type'],
                             prom['id'],
                             sig['id'],
                             y,
@@ -320,7 +332,7 @@ class PDTable:
         """ Returns all directions to a significator. """
         res = []
         for direction in self.table:
-            if ID in direction[2]:
+            if ID in direction[3]:
                 res.append(direction)
         return res
 
@@ -328,6 +340,6 @@ class PDTable:
         """ Returns all directions to a promissor. """
         res = []
         for direction in self.table:
-            if ID in direction[1]:
+            if ID in direction[2]:
                 res.append(direction)
         return res

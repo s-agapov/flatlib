@@ -13,7 +13,7 @@ from flatlib.object import GenericObject
 from flatlib.dignities import essential
 
 # Define arabic parts
-LOT_OF_FORTUNE = const.PARS_FORTUNA
+LOT_OF_FORTUNE = 'Lot of Fortune'
 LOT_OF_SPIRIT = 'Lot of Spirit'
 LOT_OF_EROS = 'Lot of Eros'
 LOT_OF_NECESSITY = 'Lot of Necessity'

@@ -97,6 +97,18 @@ class GenericObject:
         obj.type = const.OBJ_GENERIC
         obj.relocate(360 - obj.lon)
         return obj
+    
+    def dodekatemorion(self, mult = 12):
+        """ Returns dodecatemorion degree
+        mult - 13 as in Paulus Alexandrinus 
+               or 12 as in other authors  """
+        obj = self.copy()
+        obj.type = const.OBJ_GENERIC
+        grad = (self.signlon + 1) * mult - 1
+        sign_ind = const.LIST_SIGNS.index(obj.sign)
+        abs_pos = (grad + sign_ind * 30) % 360
+        obj.relocate(abs_pos)
+        return obj
 
 
 # -------------------- #

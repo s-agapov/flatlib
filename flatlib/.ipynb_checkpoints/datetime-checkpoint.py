@@ -12,6 +12,7 @@
     angular functions for internal conversions.
 
 """
+from datetime import datetime
 from dateutil import parser
 import re
 from typing import List
@@ -88,9 +89,7 @@ class Date:
         elif isinstance(value, list):
             # Assume list date such as [2015,03,29]
             value = dateJDN(value[0], value[1], value[2], calendar)
-            dt = parser.parse(f"{value[0]}-{value[1]}-{value[2]}")
         self.jdn = int(value)
-        self.dt = dt
 
     def dayofweek(self):
         """ Returns the day of week starting on Sunday as zero. """
@@ -132,8 +131,13 @@ class Time:
     
     """
 
-    def __init__(self, value):
-        self.value = angle.toFloat(value)
+    def __init__(self, value:float|int|str|List):
+        if isinstance(value, int|float|str):
+            self.value = angle.toFloat(value)
+        elif isinstance(value, list):
+            self.value = angle.toFloat(f"{value[0]}:{value[1]}")
+        else:
+            raise Exception("Wrong time data, only int, float, string and list allowed")
 
     def getUTC(self, utcoffset):
         """ Returns a new Time object set to UTC given 
@@ -186,40 +190,43 @@ class Datetime:
     GREGORIAN = GREGORIAN
     JULIAN = JULIAN
 
-    def __init__(self, date, time=0, utcoffset=0, calendar=GREGORIAN):
-            
-            
-        # Prepare the variables
-        if isinstance(date, Date):
-            self.date = date
+    def __init__(self, date: str|datetime, time=0, utcoffset=0, calendar=GREGORIAN):
+        if isinstance(date, datetime):      
+            self.date = Date([date.year, date.month, date.day])
+            self.time = Time([date.hour, date.minute])
+            self.utcoffset = date.isoformat()[-6:]
+            self.dt = date  
         else:
-            self.date = Date(date, calendar)
-            
-        xd = self.date.date()
-        xd = [str(x).zfill(2) for x in xd]
-        xd = "-".join(xd)
-        
-        if isinstance(time, Time):
-            self.time = time
-        else:
-            self.time = Time(time)
-            
-        xt = self.time.time()
-        xt = [str(x).zfill(2) for x in xt]
-        xt = ":".join(xt)
-        
-        if isinstance(utcoffset, Time):
-            self.utcoffset = utcoffset
-        else:
-            self.utcoffset = Time(utcoffset)
-            
-        xtz = self.utcoffset.time()
-        xtz = [str(x).zfill(2) for x in xtz[:2]]
-        xtz = ":".join(xtz)
-        if xtz[0] == "0":
-            xtz = '+' + xtz
-            
-        self.dt = parser.parse(f"{xd} {xt} {xtz}")
+            if isinstance(date, Date):
+                self.date = date
+            else:
+                self.date = Date(date, calendar)
+
+            xd = self.date.date()
+            xd = [str(x).zfill(2) for x in xd]
+            xd = "-".join(xd)
+
+            if isinstance(time, Time):
+                self.time = time
+            else:
+                self.time = Time(time)
+
+            xt = self.time.time()
+            xt = [str(x).zfill(2) for x in xt]
+            xt = ":".join(xt)
+
+            if isinstance(utcoffset, Time):
+                self.utcoffset = utcoffset
+            else:
+                self.utcoffset = Time(utcoffset)
+
+            xtz = self.utcoffset.time()
+            xtz = [str(x).zfill(2) for x in xtz[:2]]
+            xtz = ":".join(xtz)
+            if xtz[0] == "0":
+                xtz = '+' + xtz
+
+            self.dt = parser.parse(f"{xd} {xt} {xtz}")
         
         # Compute jd
         self.jd = self.date.jdn + self.time.value / 24.0 - \

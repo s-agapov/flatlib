@@ -92,3 +92,7 @@ class GeoPos:
     def __str__(self):
         strings = self.strings()
         return '<%s %s>' % (strings[0], strings[1])
+    
+    def __repr__(self):
+        strings = self.strings()
+        return f"{strings[0]}, {strings[1]}"

@@ -41,15 +41,21 @@ class Chart:
         Optional arguments are:
         - hsys: house system
         - IDs: list of objects to include
-        
+        - ayanamsha: swisseph const, for example SIDM_LAHIRI
         """
         # Handle optional arguments
         hsys = kwargs.get('hsys', const.HOUSES_DEFAULT)
         IDs = kwargs.get('IDs', const.LIST_OBJECTS_TRADITIONAL)
+        ayanamsha = kwargs.get('ayanamsha', None)
 
         self.date = date
         self.pos = pos
         self.hsys = hsys
+        if ayanamsha:
+            self.ayanamsha = swe.get_ayanamsa(self.date.jd, ayanamsha)
+        else:
+            self.ayanamsha = 0
+            
         self.objects = ephem.getObjectList(IDs, date, pos)
         self.houses, self.angles = ephem.getHouses(date, pos, hsys)
         
@@ -62,6 +68,7 @@ class Chart:
         chart.date = self.date
         chart.pos = self.pos
         chart.hsys = self.hsys
+        chart.ayanamsha = self.ayanamsha
         chart.objects = self.objects.copy()
         chart.houses = self.houses.copy()
         chart.angles = self.angles.copy()
