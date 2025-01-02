@@ -51,14 +51,14 @@ SWE_HOUSESYS = {
 
 # Map ayanamsas
 SWE_AYANAMSAS = {
-    const.AY_FAGAN_BRADLEY: 0,
-    const.AY_LAHIRI: 1,
-    const.AY_DELUCE: 2,
-    const.AY_RAMAN: 3,
-    const.AY_KRISHNAMURTI: 4,
-    const.AY_ALDEBARAN_15TAU: 14,
-    const.AY_SASSANIAN: 16,
-    const.AY_GALCENTER_5SAG: 17
+    const.AY_FAGAN_BRADLEY: swisseph.SIDM_FAGAN_BRADLEY,
+    const.AY_LAHIRI: swisseph.SIDM_LAHIRI,
+    const.AY_DELUCE: swisseph.SIDM_DELUCE,
+    const.AY_RAMAN: swisseph.SIDM_RAMAN,
+    const.AY_KRISHNAMURTI: swisseph.SIDM_KRISHNAMURTI,
+    const.AY_ALDEBARAN_15TAU: swe.SIDM_ALDEBARAN_15TAU,
+    const.AY_SASSANIAN: swisseph.SIDM_SASSANIAN,
+    const.AY_GALCENTER_5SAG: swisseph.SIDM_GALCENTER_5SAG
 }
 
 
