@@ -98,7 +98,19 @@ CHIRON = 'Chiron'
 NORTH_NODE = 'North Node'
 SOUTH_NODE = 'South Node'
 SYZYGY = 'Syzygy'
+
 PARS_FORTUNA = 'Pars Fortuna'
+
+LOT_OF_FORTUNE = 'Lot of Fortune'
+LOT_OF_SPIRIT = 'Lot of Spirit'
+LOT_OF_EROS = 'Lot of Eros'
+LOT_OF_NECESSITY = 'Lot of Necessity'
+LOT_OF_COURAGE = 'Lot of Courage'
+LOT_OF_VICTORY = 'Lot of Victory'
+LOT_OF_NEMESIS = 'Lot of Nemesis'
+LOT_OF_DESIRE = 'Lot of Desire'
+LOT_OF_AVERSION = 'Lot of Aversion'
+
 NO_PLANET = 'None'
 
 # Object movement
@@ -288,6 +300,12 @@ LIST_SEVEN_PLANETS = [
 
 LIST_SEVEN_SPHERE = [
     MOON, MERCURY, VENUS, SUN, MARS, JUPITER, SATURN
+]
+
+LIST_LOTS = [
+    LOT_OF_FORTUNE, LOT_OF_SPIRIT, LOT_OF_EROS, LOT_OF_NECESSITY,
+    LOT_OF_COURAGE, LOT_OF_VICTORY, LOT_OF_NEMESIS, LOT_OF_DESIRE,
+    LOT_OF_AVERSION
 ]
 
 LIST_HOUSES = [

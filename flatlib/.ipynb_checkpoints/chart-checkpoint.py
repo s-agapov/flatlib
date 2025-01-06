@@ -25,7 +25,7 @@ from . import const
 from . import utils
 from .ephem import ephem, swe
 from .datetime import Datetime
-
+from .tools import lots
 
 # ------------------ #
 #    Chart Class     #
@@ -56,8 +56,12 @@ class Chart:
         else:
             self.ayanamsha = 0
             
-        self.objects = ephem.getObjectList(IDs, date, pos)
         self.houses, self.angles = ephem.getHouses(date, pos, hsys)
+        self.objects = ephem.getObjectList(IDs, date, pos)
+        
+        xs = [lots.getLot(lot, self) for lot in const.LIST_LOTS]
+        for x in xs:
+            self.objects.add(x)
         
         IDs = const.LIST_FIXED_STARS
         self.stars = ephem.getFixedStarList(IDs, self.date)
