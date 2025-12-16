@@ -73,15 +73,25 @@ def setPath(path):
 
 def sweObject(obj, jd):
     """ Returns an object from the Ephemeris. """
-    sweObj = SWE_OBJECTS[obj]
-    sweList, flg = swisseph.calc_ut(jd, sweObj)
-    return {
-        'id': obj,
-        'lon': sweList[0],
-        'lat': sweList[1],
-        'lonspeed': sweList[3],
-        'latspeed': sweList[4]
-    }
+    sweObj = SWE_OBJECTS.get(obj)
+    if sweObj:
+        sweList, flg = swisseph.calc_ut(jd, sweObj)
+        return {
+            'id': obj,
+            'lon': sweList[0],
+            'lat': sweList[1],
+            'lonspeed': sweList[3],
+            'latspeed': sweList[4]
+        }
+    else:
+        return {
+            'id': obj,
+            'lon': 0.0,
+            'lat': 0.0,
+            'lonspeed': 0.0,
+            'latspeed': 0.0
+        }
+        
 
 
 def sweObjectLon(obj, jd):
