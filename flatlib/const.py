@@ -113,6 +113,21 @@ LOT_OF_AVERSION = 'Lot of Aversion'
 
 NO_PLANET = 'None'
 
+
+""" Mean daily planetary motions. """
+MEAN_MOTIONS = {
+    SUN: 0.98564733,  # See https://www.astro.com/cgi/h.cgi?f=gch&h=gch246&lang=e
+    MOON: 13.176389,
+    MERCURY: 1.383333,
+    VENUS: 1.2,
+    MARS: 0.524167,
+    JUPITER: 0.083056,
+    SATURN: 0.033611,
+    URANUS: 0.011667,
+    NEPTUNE: 0.006667,
+    PLUTO: 0.004167,
+}
+
 # Object movement
 DIRECT = 'Direct'
 RETROGRADE = 'Retrograde'

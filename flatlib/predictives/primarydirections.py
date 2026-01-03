@@ -102,6 +102,9 @@ class PrimaryDirections:
         const.SUN, const.MOON, const.MERCURY,
         const.VENUS, const.MARS, const.JUPITER,
         const.SATURN, const.PARS_FORTUNA,
+        const.LOT_OF_FORTUNE, const.LOT_OF_SPIRIT, const.LOT_OF_EROS, const.LOT_OF_NECESSITY,
+        const.LOT_OF_COURAGE, const.LOT_OF_VICTORY, const.LOT_OF_NEMESIS, 
+        const.LOT_OF_DESIRE, const.LOT_OF_AVERSION,
         const.NORTH_NODE, const.SOUTH_NODE
     ]
 
